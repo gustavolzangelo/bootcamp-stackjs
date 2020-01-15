@@ -8,18 +8,43 @@ server.use(express.json());
 // Request body = { "name": "Diego", "email": "diego@rocketseat.com.br" }
 
 
- const users = ['Diego','Claudio','Victor'];
-server.get('/users/:id', (req,res) => {
-  const {id} = req.params;
+const users = ['Diego','Claudio','Victor'];
 
-  return res.json(users[id]);
+server.use((req,res, next) => {
+  console.log(`Metodo ${req.method}; URL ${req.url}`);
+
+  return next();
+
+});
+
+function checkUserExists(req,res,next){
+  if(!req.body.name){
+    return res.status(400).json({error: 'User not found on request body'});
+  }
+
+  return next;
+}
+
+function checkUserInArray(req,res,next){
+  const user = users[req.params.index];
+
+  if(!users[req.params.index]){
+    return res.status(400).json({error: 'User does not exist'});
+  }
+
+  req.user = user;
+  return next();
+}
+
+server.get('/users/:index', checkUserInArray,(req,res) => {
+    return res.json(req.user);
 });
 server.get('/users', (req,res) => {
 
   return res.json(users);
 });
 
-server.post('/users',(req,res) => {
+server.post('/users',checkUserExists,(req,res) => {
 
   const {name} = req.body;
 
@@ -29,7 +54,7 @@ server.post('/users',(req,res) => {
 
 });
 
-server.put('/users/:index', (req,res) => {
+server.put('/users/:index',checkUserInArray,checkUserExists, (req,res) => {
   const {index} = req.params;
   const {name} = req.body;
 
@@ -39,7 +64,7 @@ server.put('/users/:index', (req,res) => {
 
 });
 
-server.delete('/users/:index', (req,res) => {
+server.delete('/users/:index',checkUserInArray, (req,res) => {
   const {index } = req.params;
 
   users.splice(index,1);
