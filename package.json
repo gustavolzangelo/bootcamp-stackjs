@@ -2,14 +2,17 @@
   "name": "modulo01",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/gustavolzangelo/bootcamp-stackjs",
+  "author": "Gustavo Angelo <gustavolz.angelo@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "sucrase": "^3.12.1"
   }
 }
