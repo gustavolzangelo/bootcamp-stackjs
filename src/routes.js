@@ -9,6 +9,7 @@ import FileController from './app/controllers/FileController';
 import ProvideController from './app/controllers/ProvideController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
+import NotificationController from './app/controllers/NotificationController';
 
 import multerConfig from './config/multer';
 
@@ -28,9 +29,25 @@ routes.post(
   '/appointments',
   AppointmentController.store.bind(AppointmentController)
 );
+
+routes.delete(
+  '/appointments/:id',
+  AppointmentController.delete.bind(AppointmentController)
+);
+
 routes.get('/index', AppointmentController.index);
 
 routes.get('/schedule', ScheduleController.index.bind(ScheduleController));
+
+routes.get(
+  '/notifications',
+  NotificationController.index.bind(NotificationController)
+);
+
+routes.put(
+  '/notifications/:id',
+  NotificationController.update.bind(NotificationController)
+);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
