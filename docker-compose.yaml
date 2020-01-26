@@ -18,3 +18,10 @@ services:
     - ./mongodb_data:/data/db
     ports:
     - 27017:27017
+  redis:
+    image: redis:5.0.7-alpine
+    restart: always
+    volumes:
+      - ./redis_data:/data
+    ports:
+    - 6379:6379

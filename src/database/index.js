@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 import Sequelize from 'sequelize';
 
+import mongoose from 'mongoose';
 import User from '../app/models/Users';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
 
-import mongoose from 'mongoose';
 import databaseConfig from '../config/database';
 
 const models = [User, File, Appointment];
