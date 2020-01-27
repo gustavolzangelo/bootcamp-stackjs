@@ -2,3 +2,4 @@
 node_modules/
 postgresql_data/
 mongodb_data/
+redis_data/
