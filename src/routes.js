@@ -17,12 +17,12 @@ import multerConfig from './config/multer';
 const routes = new Router();
 const upload = multer(multerConfig);
 
-routes.post('/users', UserController.store);
+routes.post('/users', UserController.store.bind(UserController));
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
 
-routes.put('/users', UserController.update);
+routes.put('/users', UserController.update.bind(UserController));
 
 routes.get('/providers/:providerId/available', AvailableController.index);
 routes.get('/providers', ProvideController.index);
