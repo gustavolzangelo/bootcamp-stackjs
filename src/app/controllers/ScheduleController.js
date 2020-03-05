@@ -1,7 +1,7 @@
-import Appointment from '../models/Appointment';
-import User from '../models/Users';
 import { startOfDay, endOfDay, parseISO } from 'date-fns';
 import { Op } from 'sequelize';
+import Appointment from '../models/Appointment';
+import User from '../models/Users';
 
 class ScheduleController {
   async index(req, res) {
@@ -20,6 +20,13 @@ class ScheduleController {
           [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
         },
       },
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
+        },
+      ],
       order: ['date'],
     });
 
